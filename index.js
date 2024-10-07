@@ -1,11 +1,15 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const cors = require("cors");
-const qaysRouter = require("./Routes");
+const contactRouter = require("./Routes");
+const { logger } = require("./services/logger");
 const app = express();
 const port = 3001;
 
+// Middleware
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 /** Health Check For API */
 app.get("/", (req, res) => {
@@ -16,9 +20,10 @@ app.get("/", (req, res) => {
 });
 
 /** Routes */
-app.use("/qays", qaysRouter);
+app.use("/contacts", contactRouter);
 
 /** Start Server */
 app.listen(port, () => {
+  logger.info(`Server listening on port ${port}`);
   console.log(`Server is running on port ${port}`);
 });

@@ -1,8 +1,8 @@
 const express = require("express");
-const qaysController = require("../Controllers/qaysController");
+const { contactsController } = require("../controllers/contactController");
 
 const router = express.Router();
 
-router.post("/contact", qaysController);
+router.post("/contact", contactsController);
 
 module.exports = router;
